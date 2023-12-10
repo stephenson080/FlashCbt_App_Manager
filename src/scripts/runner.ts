@@ -44,7 +44,6 @@ async function checkDockerLastUpdated(url: string) {
     if (statusCheckBtn) {
       statusCheckBtn.innerHTML = "Check";
     }
-    alert(error.message);
   }
 }
 
