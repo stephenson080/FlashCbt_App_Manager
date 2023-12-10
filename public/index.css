@@ -1,0 +1,189 @@
+@font-face {
+  font-family: myfont;
+  src: url('./Roboto-Light.ttf');
+}
+body {
+  font-family: myfont;
+}
+/*
+main {
+  display: flex;
+  flex-direction: column;
+  margin: 30px auto;
+  width: 80%;
+  max-width: 40rem;
+  padding: 20px;
+}
+
+main h1 {
+  font-size: 2rem;
+  text-align: center;
+}
+
+.logo {
+  width: 100%;
+  max-width: 40rem;
+  margin: 20px auto;
+  width: 150px;
+  height: 150px;
+}
+
+.logo img {
+  width: 100%;
+  height: 100%;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  margin: 3px auto;
+  width: 100%;
+  padding: 15px;
+}
+
+.form input[type=text] {
+  width: 80%;
+  border: 2px solid black;
+  padding: 6px 8px;
+  height: 30px;
+  margin: 20px 0 5px 38px;
+}
+
+.form input[type=checkbox] {
+  margin: 10px 0 0 38px;
+}
+
+.form #ip-label {
+  font-size: large;
+  font-weight: bold;
+  margin: 20px 0 0 0;
+  text-align: center;
+}
+
+.form p {
+  margin-left: 38px;
+  color: red;
+}
+
+/* .store-ip {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+} */
+
+
+
+/* .form button:hover,
+.form button:active {
+  background-color: #03b103;
+}
+
+.form input:focus, .form input:active {
+  outline: none;
+  border-color: lightgreen;
+}
+
+.action {
+  display: flex;
+  flex-direction: column;
+  margin: 5px auto;
+  width: 100%;
+  padding: 15px;
+}
+
+.action button {
+  padding: 10px 15px;
+  color: white;
+  background-color: darkgreen;
+  border: none;
+  cursor: pointer;
+  margin: 5px 0 5px 38px;
+  max-width: 8rem;
+  font-weight: bold;
+}
+
+.action button:hover,
+.action button:active {
+  background-color: #03b103;
+}
+
+.error input {
+  border-color: red;
+}  */
+
+.container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.cards {
+  width: 60rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.card {
+  width: 30%;
+  padding: .3rem;
+  margin: 0 .5rem;
+  color: white;
+  height: 150px;
+}
+
+.blue {
+  background-color: blue
+}
+
+.green {
+  background-color: green
+}
+
+.orange {
+  background-color: orange
+}
+
+.card .header {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.card .header h4 {
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+.card .header p {
+  font-size: .8rem;
+  font-weight: bold;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.card .num {
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.body {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.body h3 {
+  font-size: .6rem;
+  font-weight: bold;
+}
+
+.body p {
+  font-size: .5rem;
+  font-weight: bold;
+}
