@@ -1,19 +1,40 @@
 {
-  "name": "app_manager",
+  "name": "FlashCBT_App_Manager",
   "version": "1.0.0",
   "description": "A Utility App",
   "main": "./js/src/main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "tsc --watch && electron ./js/main.js",
+    "dev": "electron ./js/src/main.js",
+    "build": "tsc -w",
     "start": "electron ./js/src/main.js",
     "pack": "electron-builder --dir",
     "dist": "electron-builder",
     "build:linux": "electron-builder --linux",
     "build:win": "electron-builder --win"
   },
-  "author": "PathTech",
+  "author": "PathTech, <stevepathagoras08@gmail.com>",
+  "license": "ISC",
+  "build": {
+    "appId": "com.pathtech.FlashCBT",
+    "asar": true,
+    "win": {
+      "target": [
+        "appx",
+        "msi",
+        "squirrel"
+      ],
+      "icon": "./public/jamb-logo.ico"
+    },
+    "linux": {
+      "target": "deb",
+      "icon": "./public/Official_JAMB_logo.png",
+      "category": "Utility"
+    }
+  },
   "devDependencies": {
-    "electron": "28.0.0"
+    "electron": "28.0.0",
+    "electron-builder": "^24.9.1",
+    "electron-builder-squirrel-windows": "^24.9.4"
   }
 }
