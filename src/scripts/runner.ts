@@ -2,6 +2,8 @@ const { ipcRenderer } = require("electron")
 
 const $ = (selector: string) => document.querySelector(selector);
 
+let script = ''
+
 const busApi = `https://hub.docker.com/v2/repositories/olisco/flashcbt_consumer_v0/`;
 const clientApi = `https://hub.docker.com/v2/repositories/olisco/flashcbt_client_v0/`;
 
@@ -15,43 +17,45 @@ const dockerbtn = $("#docker-btn");
 const busStatus = $("#cbt-bus-status");
 const clientStatus = $("#cbt-client-status");
 const statusCheckBtn = $(`#status-check`);
+const passwordModal = $(`#passwordModal`) as HTMLDivElement
+const password = $(`#password`) as HTMLInputElement
 
 if (statusCheckBtn) {
   statusCheckBtn.addEventListener("click", getStatusUpdate);
 }
 
-if (dockerbtn){
-    dockerbtn.addEventListener('click', () => {
-      // const pass = prompt('Enter Machine password:')
-      // if (!pass)
-      ipcRenderer.send('install-docker', 'chemistry')
-    })
-}
+// if (dockerbtn){
+//     dockerbtn.addEventListener('click', () => {
+//       // const pass = prompt('Enter Machine password:')
+//       // if (!pass)
+//       ipcRenderer.send('install-docker', 'chemistry')
+//     })
+// }
 
-if (flashcbtBtn){
-    flashcbtBtn.addEventListener('click', () => {
-      // const pass = prompt('Enter Machine password:')
-      // if (!pass)
-      ipcRenderer.send('install-flashcbt', 'chemistry')
-    })
-}
+// if (flashcbtBtn){
+//     flashcbtBtn.addEventListener('click', () => {
+//       // const pass = prompt('Enter Machine password:')
+//       // if (!pass)
+//       ipcRenderer.send('install-flashcbt', 'chemistry')
+//     })
+// }
 
 async function checkDockerLastUpdated(url: string) {
   try {
-    if (statusCheckBtn) {
-      statusCheckBtn.innerHTML = "Loading...";
-    }
+    // if (statusCheckBtn) {
+    //   statusCheckBtn.innerHTML = "Loading...";
+    // }
     const res = await fetch(url);
     if (!res.ok) throw new Error(res.statusText);
     const resData = await res.json();
-    if (statusCheckBtn) {
-      statusCheckBtn.innerHTML = "Check";
-    }
+    // if (statusCheckBtn) {
+    //   statusCheckBtn.innerHTML = "Check";
+    // }
     return resData.last_updated;
   } catch (error: any) {
-    if (statusCheckBtn) {
-      statusCheckBtn.innerHTML = "Check";
-    }
+    // if (statusCheckBtn) {
+    //   statusCheckBtn.innerHTML = "Check";
+    // }
   }
 }
 
@@ -84,6 +88,32 @@ function formatDate(date: string) {
   // const mins = date.getMinutes()
 
   // return `${_date}/${month}/${year}, ${hour}/${mins}`
+}
+
+function openPasswordModal(_script: string) {
+  script = _script
+  const passwordModal = document.getElementById("passwordModal");
+  if (passwordModal) passwordModal.style.display = "block";
+  
+}
+
+// Function to close the password modal
+function closePasswordModal() {
+  if (passwordModal) passwordModal.style.display = "none";
+  
+}
+
+// Function to handle password submission (you can customize this)
+function submitPassword() {
+  if (password){
+    const value = password.value
+    console.log("Entered Password:", value);
+    ipcRenderer.send(script, value)
+    closePasswordModal();
+  }
+  // Here, you can handle password validation or any action upon submission
+  
+  
 }
 
 ipcRenderer.send('check-app-versions')

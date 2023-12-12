@@ -8,7 +8,7 @@
     <title>FlashCBT App Manager</title>
   </head>
   <body>
-    <main class="container">
+    <!-- <main class="container">
       <div class="cards">
         <div class="card blue">
           <div class="header">
@@ -38,10 +38,72 @@
             <p id="cbt-bus-status">----</p>
           </div>
         </div>
-        
-        <!-- <div id="cart" class="card orange"></div> -->
+      
       </div>
-    </main>
+    </main> -->
+    <h1>FlashCBT App Manager</h1>
+    <div class="logo">
+      <img src="./Official_JAMB_logo.png" alt="jamb_Logo" />
+    </div>
+    <div class="container">
+      <div class="card flash-cbt">
+        <h2>Flash CBT</h2>
+        <button
+          onclick="openPasswordModal('install-flashcbt')"
+          class="install-btn"
+        >
+          Install <i class="fas fa-download"></i>
+        </button>
+      </div>
+      <div class="card bus-version">
+        <h2>FlashCBT Last updated</h2>
+        <h6 class="row">
+          Bus:
+          <p id="cbt-bus-status"></p>
+        </h6>
+        <h6 class="row">
+          Client:
+          <p id="cbt-client-status"></p>
+        </h6>
+        <button id="status-check" class="sync-btn">
+          Synchronize <i class="fas fa-sync-alt"></i>
+        </button>
+      </div>
+      <div class="card docker">
+        <h2>Docker</h2>
+        <h4 id="docker-v">____</h4>
+        <button
+          class="activate-btn"
+          onclick="openPasswordModal('install-docker')"
+        >
+          Activate
+        </button>
+      </div>
+      <!-- <div class="card empty-card">
+        <h2>Dummy Text</h2>
+        <button class="dummy-btn">
+          Dummy Button <i class="far fa-question-circle"></i>
+        </button>
+      </div> -->
+    </div>
+
+    <!-- Modal -->
+    <div class="modal" id="passwordModal">
+      <div class="modal-content">
+        <span class="close" onclick="closePasswordModal()">&times;</span>
+        <div class="form">
+          <h2>Enter Password</h2>
+          <input type="password" id="password" name="password" />
+        </div>
+        <div class="action">
+          <button onclick="submitPassword()">Submit</button>
+        </div>
+      </div>
+    </div>
+
+    <script src="../js/src/scripts/fontAwesome.js"></script>
+
+    <script></script>
     <script src="../js/src/scripts/runner.js"></script>
   </body>
 </html>
