@@ -1,6 +1,6 @@
 {
   "name": "FlashCBT_App_Manager",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "A Utility App",
   "main": "./js/src/main.js",
   "scripts": {

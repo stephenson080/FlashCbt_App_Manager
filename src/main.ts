@@ -112,11 +112,11 @@ function installDocker() {
     const scriptProcess = spawn("bash", [scriptPath]);
 
     scriptProcess.stdout.on("data", (data) => {
-      win.webContents.send("process", data);
+      win.webContents.send("process", data.toString());
     });
 
     scriptProcess.stderr.on("data", (data) => {
-      win.webContents.send("process-err", data);
+      win.webContents.send("process-err", data.toString());
     });
 
     scriptProcess.on("close", (code) => {
@@ -141,14 +141,30 @@ function installFlashCbt() {
   //   );
   //   return
   // }
-  const scriptPath = join(__dirname, "scripts", "flashcbt.sh");
-  exec(`bash ${scriptPath}`, (error, stdout, stderr) => {
-    if (error) {
-      win.webContents.send("error", error.message);
-      return;
-    }
-    console.log(stdout);
-  });
+  const scriptPath = join(__dirname, "scripts", "docker.sh");
+  if (process.platform === "linux") {
+    const scriptProcess = spawn("bash", [scriptPath]);
+
+    scriptProcess.stdout.on("data", (data) => {
+      win.webContents.send("process", data.toString());
+    });
+
+    scriptProcess.stderr.on("data", (data) => {
+      win.webContents.send("process-err", data.toString());
+    });
+
+    scriptProcess.on("close", (code) => {
+      console.log(`child process exited with code ${code}`);
+    });
+  } else {
+    exec(`bash ${scriptPath}`, (error, stdout, stderr) => {
+      if (error) {
+        win.webContents.send("error", error.message);
+        return;
+      }
+      console.log(stdout);
+    });
+  }
 }
 
 // Call the function to check Docker installation
