@@ -92,3 +92,11 @@ ipcRenderer.on('docker-v', (e, res) => {
 ipcRenderer.on('error', (e, res) => {
     alert(res)
 })
+
+ipcRenderer.on('process', (e, res) => {
+  console.log(res, 'process')
+})
+
+ipcRenderer.on('process-err', (e, res) => {
+  console.log(res, 'process-err')
+})

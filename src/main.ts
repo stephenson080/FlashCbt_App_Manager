@@ -1,6 +1,7 @@
 import { app, Menu, BrowserWindow, ipcMain, nativeTheme } from "electron";
 import { join } from "path";
-import { exec } from "child_process";
+import { readFileSync } from "fs";
+import { exec, spawn } from "child_process";
 
 let win: BrowserWindow;
 
@@ -71,12 +72,12 @@ ipcMain.on("check-app-versions", function (e) {
 
 ipcMain.on("install-docker", function (e) {
   console.log("install docker");
-  installDocker()
+  installDocker();
 });
 
 ipcMain.on("install-flashcbt", function (e) {
   console.log("install FlashCbt");
-  installFlashCbt()
+  installFlashCbt();
 });
 
 function checkDockerInstallation() {
@@ -100,14 +101,36 @@ function installDocker() {
   //   );
   //   return
   // }
-  const scriptPath =  join(__dirname, 'scripts', 'docker.sh')
-  exec(`bash ${scriptPath}`, (error, stdout, stderr) => {
-    if (error) {
-      win.webContents.send('error', error.message);
-      return;
-    }
-    console.log(stdout)
-  });
+
+  const scriptPath = join(__dirname, "scripts", "docker.sh");
+
+  const file = readFileSync(scriptPath);
+
+  win.webContents.send("file", file.toString());
+
+  if (process.platform === "linux") {
+    const scriptProcess = spawn("bash", [scriptPath]);
+
+    scriptProcess.stdout.on("data", (data) => {
+      win.webContents.send("process", data);
+    });
+
+    scriptProcess.stderr.on("data", (data) => {
+      win.webContents.send("process-err", data);
+    });
+
+    scriptProcess.on("close", (code) => {
+      console.log(`child process exited with code ${code}`);
+    });
+  } else {
+    exec(`bash ${scriptPath}`, (error, stdout, stderr) => {
+      if (error) {
+        win.webContents.send("error", error.message);
+        return;
+      }
+      console.log(stdout);
+    });
+  }
 }
 
 function installFlashCbt() {
@@ -118,16 +141,14 @@ function installFlashCbt() {
   //   );
   //   return
   // }
-  const scriptPath =  join(__dirname, 'scripts', 'flashcbt.sh')
+  const scriptPath = join(__dirname, "scripts", "flashcbt.sh");
   exec(`bash ${scriptPath}`, (error, stdout, stderr) => {
     if (error) {
-      win.webContents.send('error', error.message);
+      win.webContents.send("error", error.message);
       return;
     }
-    console.log(stdout)
+    console.log(stdout);
   });
 }
-
-
 
 // Call the function to check Docker installation
