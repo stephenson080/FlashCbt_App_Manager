@@ -21,11 +21,19 @@ if (statusCheckBtn) {
 }
 
 if (dockerbtn){
-    dockerbtn.addEventListener('click', () => ipcRenderer.send('install-docker'))
+    dockerbtn.addEventListener('click', () => {
+      // const pass = prompt('Enter Machine password:')
+      // if (!pass)
+      ipcRenderer.send('install-docker', 'chemistry')
+    })
 }
 
 if (flashcbtBtn){
-    flashcbtBtn.addEventListener('click', () => ipcRenderer.send('install-flashcbt'))
+    flashcbtBtn.addEventListener('click', () => {
+      // const pass = prompt('Enter Machine password:')
+      // if (!pass)
+      ipcRenderer.send('install-flashcbt', 'chemistry')
+    })
 }
 
 async function checkDockerLastUpdated(url: string) {
@@ -99,4 +107,9 @@ ipcRenderer.on('process', (e, res) => {
 
 ipcRenderer.on('process-err', (e, res) => {
   console.log(res, 'process-err')
+})
+
+
+ipcRenderer.on('info', (e, res) => {
+  console.log(res, 'info')
 })

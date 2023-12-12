@@ -1,0 +1,58 @@
+version: '3.7'
+
+services:
+    rabbitmq-jamb:
+        container_name: "rabbitmq"
+        image: rabbitmq:3.10-management
+        environment:
+            - RABBITMQ_DEFAULT_USER=guest
+            - RABBITMQ_DEFAULT_PASS=guest
+        ports:
+            # AMQP protocol port
+            - '5672:5672'
+            # HTTP management UI
+            - '15672:15672'
+    redis:
+        image: redis    
+    mssql:
+        image: mcr.microsoft.com/mssql/server:2019-latest
+        #user: root
+        ports:
+            - 1433:1433
+        volumes:
+            #- ~/apps/mssql/data_rec:/var/lib/mssqlql/data
+            #- ~/var/opt/mssql/data_rec:/var/lib/mssqlql/data
+            - sql-data1:/var/opt/mssql/
+            #- ~/apps/mssql/data:/var/opt/mssql/data
+            - /etc/timezone:/etc/timezone:ro
+            - /etc/localtime:/etc/localtime:ro
+        environment:
+            - ACCEPT_EULA=Y
+            - SA_PASSWORD=ChemistrySQL@1
+    flashcbt_client:
+        image: olisco/flashcbt_client_v0:latest
+        ports:
+            - "9091:9091"
+            - "8080:9091"
+        #container_name: flashcbt_client
+        #network_mode: host
+        volumes:
+            - /etc/timezone:/etc/timezone:ro
+            - /etc/localtime:/etc/localtime:ro
+        depends_on:
+            - mssql 
+            - redis
+    flashcbt_consumer:
+        image: olisco/flashcbt_consumer_v0:latest
+        ports:
+            - "9092:9092"
+        volumes:
+            - /etc/timezone:/etc/timezone:ro
+            - /etc/localtime:/etc/localtime:ro
+        depends_on:
+            - flashcbt_client
+volumes:
+    sql-data1:
+   
+        
+  
