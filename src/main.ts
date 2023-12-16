@@ -37,8 +37,8 @@ function getDockerCommand(pass: string) {
   else
       # Install Docker Compose
       echo "Installing Docker Compose..."
-      ${commandWithPass} apt update
-      ${commandWithPass} apt install -y docker-compose
+      ${commandWithPass}  apt-get update
+      ${commandWithPass}  apt-get install docker-compose-plugin
   
       # Check if the installation was successful
       if command -v docker-compose &> /dev/null
