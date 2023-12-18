@@ -55,7 +55,7 @@
           Install <i class="fas fa-download"></i>
         </button>
       </div>
-      <div class="card bus-version">
+      <!-- <div class="card bus-version">
         <h2>FlashCBT Last updated</h2>
         <h6 class="row">
           Bus:
@@ -68,10 +68,10 @@
         <button id="status-check" class="sync-btn">
           Synchronize <i class="fas fa-sync-alt"></i>
         </button>
-      </div>
+      </div> -->
       <div class="card docker">
-        <h2>Docker</h2>
-        <h4 id="docker-v">____</h4>
+        <h2>App Version Update</h2>
+        <h4 id="cbt-v">____</h4>
         <button
           class="activate-btn"
           onclick="openPasswordModal('install-docker')"
@@ -98,6 +98,19 @@
         <div class="action">
           <button onclick="submitPassword()">Submit</button>
         </div>
+      </div>
+    </div>
+
+    <div class="modal" id="loader">
+      <div class="modal-content">
+        <h3>Loading. Please wait...</h3>
+      </div>
+    </div>
+
+    <div class="modal" id="info">
+      <div class="modal-content">
+        <span class="close" onclick="closeInfoModal()">&times;</span>
+        <h4 id="info-data"></h4>
       </div>
     </div>
 
